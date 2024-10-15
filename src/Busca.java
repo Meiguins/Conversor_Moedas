@@ -13,7 +13,7 @@ public class Busca {
 
         System.out.println("Digite o valor que deseja converter");
         Double valorDigitado = sc.nextDouble();
-        sc.nextLine(); // Consumir a nova linha pendente
+        sc.nextLine(); 
 
         System.out.println("Digite para qual moeda deseja converter: ");
         String moeda = sc.nextLine().toUpperCase();
@@ -27,11 +27,9 @@ public class Busca {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        // Converter a resposta JSON em objeto Java
         Gson gson = new Gson();
         ExchangeRatesResponse ratesResponse = gson.fromJson(response.body(), ExchangeRatesResponse.class);
 
-        // Verificar se a moeda solicitada está presente na resposta
         if (ratesResponse.conversion_rates.containsKey(moeda)) {
             Double taxa = ratesResponse.conversion_rates.get(moeda);
             Double valorConvertido = valorDigitado * taxa;
